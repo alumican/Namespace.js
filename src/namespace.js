@@ -1,4 +1,4 @@
-var Namespace = (function() {
+(function() {
 
 	function Namespace(path) {
 		if (typeof path == 'undefined' || !_validatePath(path)) {
@@ -174,5 +174,6 @@ var Namespace = (function() {
 		console.log('###ERROR### at ' + func + ' : ' + message);
 	};
 
-	return Namespace;
+	//register myself
+	Namespace('net.alumican.util').register('Namespace', Namespace).use();
 })();
