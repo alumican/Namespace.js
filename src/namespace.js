@@ -144,6 +144,8 @@
 	var _spaces = {};
 	var _separator = '.';
 	var _defaultScope = window;
+	var _regSeparator = _separator.match(/[\[\]\-^$.+*?{}\\]/) !== null ? '\\' + _separator : _separator;
+	var _regPath = new RegExp('^[0-9a-zA-Z]+(' + _regSeparator + '[0-9a-zA-Z]+)*$');
 
 	//----------------------------------------
 	// STATIC PRIVATE METHOD
@@ -167,7 +169,7 @@
 	};
 
 	var _validatePath = function(path) {
-		return path.match(/^[0-9a-zA-Z]+(\.[0-9a-zA-Z]+)*$/) !== null;
+		return _regPath.test(path);
 	};
 
 	var _printError = function(func, message) {
