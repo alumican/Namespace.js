@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+	<head>
+		<title>namespace.js</title>
+
+		<!-- import Namespace -->
+		<script type="text/javascript" src="script/jpp/namespace.js"></script>
+
+		<!-- how to use Namespace -->
+		<script type="text/javascript">
+
+		//resister object to namespace
+		Namespace('foo.baa').register('Moja', function Moja() { return 'Moja'; });
+		Namespace('net.alumican').register('Hello', function Hello() { return 'Hello'; });
+		Namespace('net.alumican').register('Innocent', function Innocent() { return 'Innocent'; });
+		Namespace('net.alumican').register('World', function World() { return 'World'; });
+		Namespace('net.alumican.ns1').register('Hoge', function Hoge() { return 'Hoge in ns1'; });
+		Namespace('net.alumican.ns2').register('Hoge', function Hoge() { return 'Hoge in ns2'; });
+		Namespace('net.alumican.ns3').register('Hoge', function Hoge() { return 'Hoge in ns3'; });
+
+		//this register will occasion confrict error (if 3rd argument is true, existing object is overrided)
+		Namespace('net.alumican').register('World', function World() { return 'World'; } /* ,true */);
+
+		//Namespace('net.alumican').use();
+		//console.log(net.alumican.Hello());
+		//console.log(net.alumican.Innocent());
+		//console.log(net.alumican.World());
+
+		//Namespace('net.alumican').import();
+		//console.log(Hello());
+		//console.log(Innocent());
+		//console.log(World());
+
+		//Namespace('net.alumican').import('*');
+		//console.log(Hello());
+		//console.log(Innocent());
+		//console.log(World());
+
+		//Namespace('net.alumican').import('Hello');
+		//console.log(Hello());
+
+		//Namespace('net.alumican').import(['Innocent', 'World']);
+		//console.log(Innocent());
+		//console.log(World());
+
+		//Namespace('xxx.yyy').use();
+		//console.log(xxx.yyy);
+
+		//Namespace('net.alumican').use().import('Hello');
+		//console.log(net.alumican.Hello());
+		//console.log(Hello());
+
+		//console.log(Namespace('net.alumican').exist());
+
+		//var myscope = {};
+		//Namespace('net.alumican').scope(myscope).use().import('Hello');
+		//console.log(myscope.net.alumican.Hello());
+		//console.log(myscope.Hello());
+
+		/*
+		switch (0) {
+
+			case 1:
+				//import all top level namespace to global scope
+				Namespace().import('*');
+				console.log(foo.baa.Moja());
+				console.log(net.alumican.Hello());
+				break;
+
+			case 4:
+				//import all top level namespace to global scope
+				Namespace('net').import();
+				console.log(net.alumican.Hello());
+				break;
+
+			case 5:
+				//import all top level namespace to global scope
+				Namespace('net.alumican').import('Hello');
+				console.log(Hello());
+				break;
+
+			case 6:
+				//import all top level namespace to global scope
+				Namespace('net.alumican').import(['Hello', 'World']);
+				console.log(Hello(), World());
+				break;
+
+			case 7:
+				//import all top level namespace to global scope
+				Namespace('net.alumican').import();
+				console.log(alumican.Hello(), alumican.World());
+				break;
+
+			case 3:
+				//import partial namespace to global scope
+				Namespace('net.alumican').import('*');
+				console.log(ns1.Hoge());
+				console.log(ns2.Hoge());
+				console.log(ns3.Hoge());
+				break;
+
+			case 2:
+				//import all top level namespace to custom scope
+				var myscope = {};
+				Namespace().import('*', myscope);
+				console.log(myscope.net.alumican.World());
+				break;
+		}
+		*/
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
