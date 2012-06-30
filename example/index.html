@@ -22,6 +22,7 @@
 		Namespace('net.alumican').register('Hello', function Hello() { return 'Hello'; } /* ,true */);
 
 		//check namespace is exist
+		console.log('net       : exist = ' + Namespace('net').exist());
 		console.log('foo.bar   : exist = ' + Namespace('foo.bar').exist());
 		console.log('hoge.fuga : exist = ' + Namespace('hoge.fuga').exist());
 
@@ -67,6 +68,7 @@
 		//console.log(myscope.net.alumican.Hello());
 		//console.log(myscope.Hello());
 
+		Namespace.enumerate();
 		</script>
 	</head>
 	<body>

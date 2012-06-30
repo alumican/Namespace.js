@@ -23,7 +23,14 @@
 		//----------------------------------------
 
 		var _allocate = function() {
+			if (_existSpace(path)) return;
 			_space = _setSpace(path);
+
+			//allocate subspace
+			var n = _names.length;
+			for (var i = 1; i < n; ++i) {
+				_setSpace(_names.slice(0, i).join('.'));
+			}
 		};
 
 		var _extern = function(classname) {
@@ -172,8 +179,24 @@
 		return _regPath.test(path);
 	};
 
+	var _print = function(message) {
+		if (typeof console == 'undefined' && typeof console.log == 'undefined') return;
+		console.log(message);
+	};
+
 	var _printError = function(func, message) {
-		console.log('###ERROR### at ' + func + ' : ' + message);
+		_print('###ERROR### at ' + func + ' : ' + message);
+	};
+
+	//----------------------------------------
+	// STATIC PUBLIC METHOD
+	//----------------------------------------
+
+	/**
+	 * 名前空間に登録されているオブジェクトを列挙する(デバッグ用)
+	 */
+	Namespace.enumerate = function() {
+		_print(_spaces);
 	};
 
 	//register myself
