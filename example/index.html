@@ -8,67 +8,86 @@
 
 		<!-- how to use Namespace -->
 		<script type="text/javascript">
+		function trace() { console.log(Array.prototype.join.call(arguments, '')); }
 
 		//import "window.net.alumican.util.Namespace" to "window.Namespace"
 		net.alumican.util.Namespace('net.alumican.util').import('Namespace');
 
 		//resister object to namespace
-		Namespace('net.alumican').register('Hello', function Hello() { return 'Hello'; });
-		Namespace('net.alumican').register('Innocent', function Innocent() { return 'Innocent'; });
-		Namespace('net.alumican').register('World', function World() { return 'World'; });
-		Namespace('foo.bar').register('Moja', function Moja() { return 'Moja'; });
+		Namespace('foo.bar').register('Hello', function Hello() { return 'Hello'; });
+		Namespace('foo.bar').register('World', function World() { return 'World'; });
 
 		//this register will occasion confrict error (if 3rd argument is true, existing object is overrided)
-		Namespace('net.alumican').register('Hello', function Hello() { return 'Hello'; } /* ,true */);
+		Namespace('foo.bar').register('Hello', function Hello() { return 'Hello'; } /* ,true */);
 
 		//check namespace is exist
-		console.log('net       : exist = ' + Namespace('net').exist());
-		console.log('foo.bar   : exist = ' + Namespace('foo.bar').exist());
-		console.log('hoge.fuga : exist = ' + Namespace('hoge.fuga').exist());
+		trace( 'foo       : exist = ', Namespace('foo').exist()       );
+		trace( 'foo.bar   : exist = ', Namespace('foo.bar').exist()   );
+		trace( 'hoge.fuga : exist = ', Namespace('hoge.fuga').exist() );
 
-		//case 1
-		Namespace('net.alumican').use();
-		console.log(net.alumican.Hello());
-		console.log(net.alumican.Innocent());
-		console.log(net.alumican.World());
+		switch (9) {
 
-		//case 2
-		//Namespace('net.alumican').import();
-		//console.log(Hello());
-		//console.log(Innocent());
-		//console.log(World());
+			//Namespace.use
+			case 1:
+				Namespace('foo.bar').use();
+				trace( foo.bar.Hello() );
+				trace( foo.bar.World() );
+			break;
 
-		//case 3
-		//Namespace('net.alumican').import('*');
-		//console.log(Hello());
-		//console.log(Innocent());
-		//console.log(World());
+			//Namespace.import
+			case 2:
+				Namespace('foo.bar').import('Hello');
+				trace( Hello() );
+			break;
 
-		//case 4
-		//Namespace('net.alumican').import('Hello');
-		//console.log(Hello());
+			case 3:
+				Namespace('foo.bar').import(['Hello', 'World']);
+				trace( Hello() );
+				trace( World() );
+			break;
 
-		//case 5
-		//Namespace('net.alumican').import(['Innocent', 'World']);
-		//console.log(Innocent());
-		//console.log(World());
+			case 4:
+				Namespace('foo.bar').import('*');
+				trace( Hello() );
+				trace( World() );
+			break;
 
-		//case 6
-		//Namespace('xxx.yyy').use();
-		//console.log(xxx.yyy);
+			case 5:
+				Namespace('foo.bar').import();
+				trace( Hello() );
+				trace( World() );
+			break;
 
-		//case 7
-		//Namespace('net.alumican').use().import('Hello');
-		//console.log(net.alumican.Hello());
-		//console.log(Hello());
+			//Namespace.scope
+			case 6:
+				var myscope = {};
+				Namespace('foo.bar').scope(myscope).use();
+				Namespace('foo.bar').scope(myscope).import('Hello');
+				trace( myscope.foo.bar.Hello() );
+				trace( myscope.foo.bar.World() );
+				trace( myscope.Hello()         );
+			break;
 
-		//case 8
-		//var myscope = {};
-		//Namespace('net.alumican').scope(myscope).use().import('Hello');
-		//console.log(myscope.net.alumican.Hello());
-		//console.log(myscope.Hello());
+			//method chain
+			case 7:
+				Namespace('foo.bar').use().import('Hello');
+				trace( foo.bar.Hello() );
+				trace( foo.bar.World() );
+				trace( Hello()         );
+			break;
 
-		Namespace.enumerate();
+			//method chain
+			case 8:
+				Namespace('xxx.yyy').use();
+				trace( 'xxx     : ', xxx     );
+				trace( 'xxx.yyy : ', xxx.yyy );
+			break;
+
+			//Namespace.enumerate
+			case 9:
+				trace( Namespace.enumerate() );
+			break;
+		}
 		</script>
 	</head>
 	<body>
