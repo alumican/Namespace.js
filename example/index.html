@@ -18,7 +18,7 @@
 		Namespace('foo.bar').register('World', function World() { return 'World'; });
 
 		//this register will occasion confrict error (if 3rd argument is true, existing object is overrided)
-		Namespace('foo.bar').register('Hello', function Hello() { return 'Hello'; } /* ,true */);
+		Namespace('foo.bar').register('Hello', function Hello2() { return 'Hello2'; } /* ,true */);
 
 		//check namespace is exist
 		trace( 'foo       : exist = ', Namespace('foo').exist()       );
